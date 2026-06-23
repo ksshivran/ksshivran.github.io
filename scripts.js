@@ -10,20 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
   if (btn) btn.addEventListener('click', togglePublications);
 });
 
-// ── Photo upload ──────────────────────────────────────────────────────────────
-function loadPhoto(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const img = document.getElementById('profilePhoto');
-    img.src = e.target.result;
-    img.classList.add('loaded');
-  };
-  reader.readAsDataURL(file);
-}
-
-// ── Publications ──────────────────────────────────────────────────────────────
 function loadPublications() {
   fetch('publications.json')
     .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
@@ -53,7 +39,6 @@ function createPublicationElement(pub) {
   const item = document.createElement('div');
   item.className = 'publication-item';
 
-  // Thumbnail
   const thumb = document.createElement('div');
   thumb.className = 'pub-thumbnail';
   thumb.onclick = () => openModal(pub.thumbnail);
@@ -69,7 +54,6 @@ function createPublicationElement(pub) {
   };
   thumb.appendChild(tImg);
 
-  // Content
   const content = document.createElement('div');
   content.className = 'pub-content';
 
@@ -124,7 +108,6 @@ function createPublicationElement(pub) {
   return item;
 }
 
-// ── Modal ─────────────────────────────────────────────────────────────────────
 function openModal(src) {
   const modal = document.getElementById('imageModal');
   modal.style.display = 'block';
@@ -139,6 +122,5 @@ function closeModal() {
 }
 
 window.onclick = function (e) {
-  const modal = document.getElementById('imageModal');
-  if (e.target === modal) closeModal();
+  if (e.target === document.getElementById('imageModal')) closeModal();
 };
