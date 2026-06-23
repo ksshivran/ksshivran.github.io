@@ -1,36 +1,38 @@
-// Global variables
 let allPublications = [];
 let showingSelected = true;
 
 document.addEventListener('DOMContentLoaded', function () {
   loadPublications();
-  const sections = document.querySelectorAll('section');
-  sections.forEach((section, index) => {
-    section.style.animationDelay = `${index * 0.1}s`;
+  document.querySelectorAll('section').forEach((s, i) => {
+    s.style.animationDelay = (i * 0.1) + 's';
   });
-  const toggleButton = document.getElementById('toggle-publications');
-  if (toggleButton) toggleButton.addEventListener('click', togglePublications);
+  const btn = document.getElementById('toggle-publications');
+  if (btn) btn.addEventListener('click', togglePublications);
 });
 
-function loadPublications() {
-  fetch('publications.json')
-    .then(response => {
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.json();
-    })
-    .then(data => {
-      allPublications = data.publications;
-      renderPublications(true);
-    })
-    .catch(error => {
-      console.error('Error loading publications:', error);
-      displayFallbackPublications();
-    });
+// ── Photo upload ──────────────────────────────────────────────────────────────
+function loadPhoto(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const img = document.getElementById('profilePhoto');
+    img.src = e.target.result;
+    img.classList.add('loaded');
+  };
+  reader.readAsDataURL(file);
 }
 
-function displayFallbackPublications() {
-  const container = document.getElementById('publications-container');
-  container.innerHTML = '<p style="color:#888;">Could not load publications. Serve via a local HTTP server (e.g. <code>python3 -m http.server</code>).</p>';
+// ── Publications ──────────────────────────────────────────────────────────────
+function loadPublications() {
+  fetch('publications.json')
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(data => { allPublications = data.publications; renderPublications(true); })
+    .catch(err => {
+      console.error('Error loading publications:', err);
+      document.getElementById('publications-container').innerHTML =
+        '<p style="color:#888;">Could not load publications. Serve via a local HTTP server: <code>python3 -m http.server</code></p>';
+    });
 }
 
 function togglePublications() {
@@ -47,26 +49,25 @@ function renderPublications(selectedOnly) {
   list.forEach(pub => container.appendChild(createPublicationElement(pub)));
 }
 
-function createPublicationElement(publication) {
-  const pubItem = document.createElement('div');
-  pubItem.className = 'publication-item';
+function createPublicationElement(pub) {
+  const item = document.createElement('div');
+  item.className = 'publication-item';
 
   // Thumbnail
-  const thumbnail = document.createElement('div');
-  thumbnail.className = 'pub-thumbnail';
-  thumbnail.onclick = () => openModal(publication.thumbnail);
-
-  const thumbnailImg = document.createElement('img');
-  thumbnailImg.src = publication.thumbnail;
-  thumbnailImg.alt = publication.title + ' thumbnail';
-  thumbnailImg.onerror = function () {
+  const thumb = document.createElement('div');
+  thumb.className = 'pub-thumbnail';
+  thumb.onclick = () => openModal(pub.thumbnail);
+  const tImg = document.createElement('img');
+  tImg.src = pub.thumbnail;
+  tImg.alt = pub.title + ' thumbnail';
+  tImg.onerror = function () {
     this.style.display = 'none';
     const ph = document.createElement('div');
     ph.className = 'pub-thumbnail-placeholder';
     ph.innerHTML = '&#128196;';
-    thumbnail.appendChild(ph);
+    thumb.appendChild(ph);
   };
-  thumbnail.appendChild(thumbnailImg);
+  thumb.appendChild(tImg);
 
   // Content
   const content = document.createElement('div');
@@ -74,77 +75,61 @@ function createPublicationElement(publication) {
 
   const title = document.createElement('div');
   title.className = 'pub-title';
-  title.textContent = publication.title;
+  title.textContent = pub.title;
   content.appendChild(title);
 
   const authors = document.createElement('div');
   authors.className = 'pub-authors';
-  let authorsHTML = '';
-  publication.authors.forEach((author, index) => {
-    if (author.includes('Kuldeep Singh Shivran') || author.includes('Shivran, Kuldeep')) {
-      authorsHTML += `<span class="highlight-name">${author}</span>`;
-    } else {
-      authorsHTML += author;
+  authors.innerHTML = pub.authors.map((a, i) => {
+    const sep = i < pub.authors.length - 1 ? ', ' : '';
+    if (a.includes('Kuldeep Singh Shivran') || a.includes('Shivran, Kuldeep')) {
+      return '<span class="highlight-name">' + a + '</span>' + sep;
     }
-    if (index < publication.authors.length - 1) authorsHTML += ', ';
-  });
-  authors.innerHTML = authorsHTML;
+    return a + sep;
+  }).join('');
   content.appendChild(authors);
 
-  const venueContainer = document.createElement('div');
-  venueContainer.className = 'pub-venue-container';
+  const venueRow = document.createElement('div');
+  venueRow.className = 'pub-venue-container';
   const venue = document.createElement('div');
   venue.className = 'pub-venue';
-  venue.textContent = publication.venue;
-  venueContainer.appendChild(venue);
-  if (publication.award && publication.award.length > 0) {
-    const award = document.createElement('div');
-    award.className = 'pub-award';
-    award.textContent = publication.award;
-    venueContainer.appendChild(award);
+  venue.textContent = pub.venue;
+  venueRow.appendChild(venue);
+  if (pub.award && pub.award.length > 0) {
+    const aw = document.createElement('div');
+    aw.className = 'pub-award';
+    aw.textContent = pub.award;
+    venueRow.appendChild(aw);
   }
-  content.appendChild(venueContainer);
+  content.appendChild(venueRow);
 
-  if (publication.links && Object.keys(publication.links).length > 0) {
+  if (pub.links && Object.keys(pub.links).length > 0) {
     const links = document.createElement('div');
     links.className = 'pub-links';
-    if (publication.links.pdf) {
-      const a = document.createElement('a');
-      a.href = publication.links.pdf;
-      a.textContent = '[PDF / DOI]';
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      links.appendChild(a);
-    }
-    if (publication.links.code) {
-      const a = document.createElement('a');
-      a.href = publication.links.code;
-      a.textContent = '[Code]';
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      links.appendChild(a);
-    }
-    if (publication.links.project) {
-      const a = document.createElement('a');
-      a.href = publication.links.project;
-      a.textContent = '[Project Page]';
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      links.appendChild(a);
-    }
+    [['pdf','[PDF / DOI]'], ['code','[Code]'], ['project','[Project Page]']].forEach(([key, label]) => {
+      if (pub.links[key]) {
+        const a = document.createElement('a');
+        a.href = pub.links[key];
+        a.textContent = label;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        links.appendChild(a);
+      }
+    });
     content.appendChild(links);
   }
 
-  pubItem.appendChild(thumbnail);
-  pubItem.appendChild(content);
-  return pubItem;
+  item.appendChild(thumb);
+  item.appendChild(content);
+  return item;
 }
 
-function openModal(imageSrc) {
+// ── Modal ─────────────────────────────────────────────────────────────────────
+function openModal(src) {
   const modal = document.getElementById('imageModal');
   modal.style.display = 'block';
   setTimeout(() => modal.classList.add('show'), 10);
-  document.getElementById('modalImage').src = imageSrc;
+  document.getElementById('modalImage').src = src;
 }
 
 function closeModal() {
@@ -153,7 +138,7 @@ function closeModal() {
   setTimeout(() => { modal.style.display = 'none'; }, 300);
 }
 
-window.onclick = function (event) {
+window.onclick = function (e) {
   const modal = document.getElementById('imageModal');
-  if (event.target === modal) closeModal();
+  if (e.target === modal) closeModal();
 };

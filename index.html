@@ -15,32 +15,32 @@
   <header>
     <div class="header-content">
       <h1>Kuldeep Singh Shivran</h1>
-      <p>
-        PhD Researcher &bull; Department of Electrical Engineering<br>
-        Indian Institute of Science (IISc), Bengaluru, India
-      </p>
+      <p>PhD Researcher &bull; Department of Electrical Engineering<br>Indian Institute of Science (IISc), Bengaluru, India</p>
       <div class="social-links-header">
-        <a href="mailto:kuldeeps@iisc.ac.in" title="Email"><i class="fas fa-envelope"></i> kuldeeps@iisc.ac.in</a>
-        <a href="https://github.com/ksshivran" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i> GitHub</a>
-        <a href="https://linkedin.com/in/kshivran" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a>
-        <a href="tel:+919089711475" title="Phone"><i class="fas fa-phone"></i> +91-9089711475</a>
+        <a href="mailto:kuldeeps@iisc.ac.in"><i class="fas fa-envelope"></i> kuldeeps@iisc.ac.in</a>
+        <a href="https://github.com/ksshivran" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://linkedin.com/in/kshivran" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="tel:+919089711475"><i class="fas fa-phone"></i> +91-9089711475</a>
       </div>
-      <nav>
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#news">News</a></li>
-          <li><a href="#publications">Publications</a></li>
-          <li><a href="#education">Education</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#awards">Awards</a></li>
-          <li><a href="#services">Services</a></li>
-        </ul>
-      </nav>
+      <nav><ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#awards">Awards</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#services">Services</a></li>
+      </ul></nav>
     </div>
     <div class="header-image">
-      <img src="images/profile.jpg" alt="Kuldeep Singh Shivran" onerror="this.style.display='none'">
+      <div class="photo-wrapper" title="Click to upload your photo" onclick="document.getElementById('photoInput').click()">
+        <img id="profilePhoto" src="" alt="Kuldeep Singh Shivran">
+        <div class="photo-overlay"><i class="fas fa-camera"></i><span>Upload Photo</span></div>
+      </div>
+      <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="loadPhoto(event)">
     </div>
   </header>
 
@@ -48,32 +48,21 @@
 
     <section id="about">
       <h2>About</h2>
-      <p>
-        I am a PhD researcher at IISc Bengaluru working on <strong>cyber-physical security of electric power grids</strong>,
-        advised by Prof. Sarasij Das. My research spans substation topology modelling
-        (IEC&nbsp;61850 / node-breaker model), Bayesian attack graphs, vulnerability assessment,
-        and cyber-physical attack impact analysis.
-      </p>
-      <p>
-        I am seeking a <strong>researcher / postdoctoral / developer role</strong> where I can apply
-        my expertise in power system resilience, communication protocols (IEC&nbsp;61850, GOOSE, SV, MMS),
-        and cybersecurity.
-      </p>
+      <p>I am a PhD researcher at IISc Bengaluru working on <strong>cyber-physical security of electric power grids</strong>, advised by Prof. Sarasij Das. My research spans substation topology modelling (IEC&nbsp;61850 / node-breaker model), Bayesian attack graphs, vulnerability assessment, and cyber-physical attack impact analysis.</p>
+      <p>I am seeking a <strong>researcher / postdoctoral / developer role</strong> where I can apply my expertise in power system resilience, communication protocols (IEC&nbsp;61850, GOOSE, SV, MMS), and cybersecurity.</p>
     </section>
 
     <section id="news">
       <h2>News</h2>
-      <div class="news-container">
-        <ul class="news-list">
-          <li><strong>Jun. 2026:</strong> Paper on node-breaker attack impact assessment accepted at <em>2026 IEEE IAS Annual Meeting</em>.</li>
-          <li><strong>2026:</strong> Paper on Device Similarity-Aware Bayesian Attack Graphs submitted to <em>IEEE Transactions on Smart Grid</em> (In Review).</li>
-          <li><strong>2025:</strong> Paper on Similarity Metrics for digital devices published at <em>IEEE PESGM 2025</em>.</li>
-          <li><strong>2025:</strong> Paper on Series Arc and Hotspot Detection published at <em>IEEE PESGRE 2025</em>.</li>
-          <li><strong>2025:</strong> Journal paper on Cyber Risk &amp; Load Forecasting published in <em>IET Cyber-Physical Systems: Theory &amp; Applications</em>.</li>
-          <li><strong>2024:</strong> Paper on SDN/ICN for IEC&nbsp;61850 substations published at <em>IEEE ISGT Asia 2024</em>.</li>
-          <li><strong>Dec. 2025:</strong> Developed and demonstrated MAC Security (HMAC) hands-on programs for IEC&nbsp;61850 GOOSE and SV messages at <em>Cyber Security Workshop, IISc</em>.</li>
-        </ul>
-      </div>
+      <div class="news-container"><ul class="news-list">
+        <li><strong>Jun. 2026:</strong> Paper on node-breaker attack impact assessment accepted at <em>2026 IEEE IAS Annual Meeting</em>.</li>
+        <li><strong>2026:</strong> Paper on Device Similarity-Aware Bayesian Attack Graphs submitted to <em>IEEE Transactions on Smart Grid</em> (In Review).</li>
+        <li><strong>2025:</strong> Paper on Similarity Metrics for digital devices published at <em>IEEE PESGM 2025</em>.</li>
+        <li><strong>2025:</strong> Paper on Series Arc and Hotspot Detection published at <em>IEEE PESGRE 2025</em>.</li>
+        <li><strong>2025:</strong> Journal paper on Cyber Risk &amp; Load Forecasting published in <em>IET Cyber-Physical Systems: Theory &amp; Applications</em>.</li>
+        <li><strong>2024:</strong> Paper on SDN/ICN for IEC&nbsp;61850 substations published at <em>IEEE ISGT Asia 2024</em>.</li>
+        <li><strong>Dec. 2025:</strong> Demonstrated MAC Security (HMAC) hands-on programs for IEC&nbsp;61850 GOOSE and SV at <em>Cyber Security Workshop, IISc</em>.</li>
+      </ul></div>
     </section>
 
     <section id="publications">
@@ -91,11 +80,8 @@
         <div class="award-desc">
           <strong>PhD in Electrical Engineering</strong>, CGPA: 8.4/10.0<br>
           Indian Institute of Science (IISc), Bengaluru, India<br>
-          <small>
-            <em>Thesis:</em> Cyber-physical Security of Electric Grids &mdash; Advisor: Prof. Sarasij Das<br>
-            <em>Coursework:</em> Power Systems Dynamics &amp; Control, Protection, Advanced Power System Analysis,
-            Power Electronics, Embedded &amp; Linux Systems, TCP/IP Networking, DSP, Control Systems Design, Machine Learning.
-          </small>
+          <small><em>Thesis:</em> Cyber-physical Security of Electric Grids &mdash; Advisor: Prof. Sarasij Das<br>
+          <em>Coursework:</em> Power Systems Dynamics &amp; Control, Protection, Advanced Power System Analysis, Power Electronics, Embedded &amp; Linux Systems, TCP/IP Networking, DSP, Control Systems Design, Machine Learning.</small>
         </div>
       </div>
       <div class="award-item" style="margin-top:1rem;">
@@ -103,10 +89,7 @@
         <div class="award-desc">
           <strong>B.Tech in Electrical and Electronics Engineering</strong>, CGPA: 9.2/10.0<br>
           National Institute of Technology Meghalaya, Shillong, India<br>
-          <small>
-            <em>Coursework:</em> Power Systems, Electric Machines, Microcontroller, C/C++ Programming,
-            Signal Processing, Linear Algebra, Calculus, Probability, Control Systems, Power Electronics.
-          </small>
+          <small><em>Coursework:</em> Power Systems, Electric Machines, Microcontroller, C/C++ Programming, Signal Processing, Linear Algebra, Calculus, Probability, Control Systems, Power Electronics.</small>
         </div>
       </div>
     </section>
@@ -131,7 +114,6 @@
           <li>Developed functional designs, models, unit tests, and documentation.</li>
         </ul>
       </div>
-
       <h2 style="margin-top:2rem;">Internships &amp; Training</h2>
       <div class="misc-item">
         <div class="service-title">Grid Controller of India Limited, NERLDC &mdash; <em>Industrial Trainee</em></div>
@@ -144,7 +126,7 @@
       <div class="misc-item">
         <div class="service-title">Power Grid Corporation of India Ltd. &mdash; <em>Industrial Trainee</em></div>
         <p><small>Dec. 2014 | Misa, Assam, India</small></p>
-        <ul><li>Overview of 220 kV and 400 kV substation components and report development.</li></ul>
+        <ul><li>Overview of 220 kV and 400 kV substation components; developed substation component report.</li></ul>
       </div>
       <div class="misc-item">
         <div class="service-title">Robosapiens Technologies Pvt. Ltd. &mdash; <em>Industrial Trainee</em></div>
@@ -182,11 +164,11 @@
         <ul><li>Deterministic timing analysis and priority scheduling in IEC&nbsp;61850 GOOSE Linux implementation.</li></ul>
       </div>
       <div class="misc-item">
-        <div class="service-title">Transient Stability Simulation <small>(Power Systems Dynamics &amp; Control Course, IISc, 2020–21)</small></div>
+        <div class="service-title">Transient Stability Simulation <small>(Power Systems Dynamics &amp; Control Course, IISc, 2020&ndash;21)</small></div>
         <ul><li>Multi-machine transient stability analysis in C; control and protection simulation for IEEE 9-bus and 39-bus systems.</li></ul>
       </div>
       <div class="misc-item">
-        <div class="service-title">Coordinated Control of DERs and Thermal Units for LFC <small>(NIT Meghalaya, 2015–16)</small></div>
+        <div class="service-title">Coordinated Control of DERs and Thermal Units for LFC <small>(NIT Meghalaya, 2015&ndash;16)</small></div>
         <ul>
           <li>Vehicle-to-Grid secondary frequency stabilization via PID controller with solar DERs and smart EVs.</li>
           <li>Cuckoo Search Algorithm for optimal tuning of secondary control parameters.</li>
@@ -196,65 +178,36 @@
 
     <section id="skills">
       <h2>Skills</h2>
-      <div class="service-category">
-        <div class="service-title">Coding</div>
-        <p>Python, C, C++, Embedded C, MATLAB, Julia, P4, Prolog/XSB, LaTeX</p>
-      </div>
-      <div class="service-category">
-        <div class="service-title">Hardware &amp; Parallel</div>
-        <p>TI LAUNCHXL-F28379D &amp; CC3220SF, LEM HO25-P, Raspberry Pi, Other Embedded Systems</p>
-      </div>
-      <div class="service-category">
-        <div class="service-title">Tools &amp; Software</div>
-        <p>PSCAD, OPAL-RT, MATLAB, CCS Studio, GAMSpy (IPOPT), MulVAL, PCM600, DIGSI5, GitHub, Inkscape</p>
-      </div>
-      <div class="service-category">
-        <div class="service-title">Frameworks &amp; Libraries</div>
-        <p>Sentence-Transformers, LlamaIndex (RAG), Qdrant, Docling, NetworkX, WEKA, PyTorch, scikit-learn</p>
-      </div>
-      <div class="service-category">
-        <div class="service-title">Protocols &amp; Standards</div>
-        <p>IEC 61850 (GOOSE, SV, MMS), IEC 62351, NDN/ICN, SDN, SCADA, SPI, HTTP</p>
-      </div>
-      <div class="service-category">
-        <div class="service-title">Languages</div>
-        <p>English and Hindi (reading, writing, speaking).</p>
-      </div>
+      <div class="service-category"><div class="service-title">Coding</div><p>Python, C, C++, Embedded C, MATLAB, Julia, P4, Prolog/XSB, LaTeX</p></div>
+      <div class="service-category"><div class="service-title">Hardware &amp; Parallel</div><p>TI LAUNCHXL-F28379D &amp; CC3220SF, LEM HO25-P, Raspberry Pi, Other Embedded Systems</p></div>
+      <div class="service-category"><div class="service-title">Tools &amp; Software</div><p>PSCAD, OPAL-RT, MATLAB, CCS Studio, GAMSpy (IPOPT), MulVAL, PCM600, DIGSI5, GitHub, Inkscape</p></div>
+      <div class="service-category"><div class="service-title">Frameworks &amp; Libraries</div><p>Sentence-Transformers, LlamaIndex (RAG), Qdrant, Docling, NetworkX, WEKA, PyTorch, scikit-learn</p></div>
+      <div class="service-category"><div class="service-title">Protocols &amp; Standards</div><p>IEC 61850 (GOOSE, SV, MMS), IEC 62351, NDN/ICN, SDN, SCADA, SPI, HTTP</p></div>
+      <div class="service-category"><div class="service-title">Languages</div><p>English and Hindi (reading, writing, speaking).</p></div>
     </section>
 
     <section id="awards">
       <h2>Awards &amp; Honors</h2>
+      <div class="award-item"><div class="award-year">2020</div><div class="award-desc">Qualified <strong>GATE-2020</strong> (AIR: 718, Score: 711)</div></div>
+      <div class="award-item"><div class="award-year">Aug. 2017</div><div class="award-desc"><strong>Best Graduate Hire</strong> &mdash; IBM India Pvt. Ltd. <small>For contribution towards IBM's commitment to delivering client value.</small></div></div>
+      <div class="award-item"><div class="award-year">Jun. 2016</div><div class="award-desc"><strong>President's Gold Medal</strong> &mdash; NIT Meghalaya <small>For overall performance in academic and co-curricular activities among all B.Tech graduates.</small></div></div>
+      <div class="award-item"><div class="award-year">Jun. 2016</div><div class="award-desc"><strong>Institute Gold Medal</strong> &mdash; NIT Meghalaya <small>Highest CGPA among students completing B.Tech in Electrical and Electronics Engineering.</small></div></div>
+      <div class="award-item"><div class="award-year">2014&ndash;2016</div><div class="award-desc"><strong>Merit Free Studentship</strong> &mdash; NIT Meghalaya <small>Top 5% of department students in respective semesters.</small></div></div>
+    </section>
+
+    <section id="courses">
+      <h2>Courses &amp; Certifications</h2>
       <div class="award-item">
-        <div class="award-year">2020</div>
-        <div class="award-desc">Qualified <strong>GATE-2020</strong> (AIR: 718, Score: 711)</div>
+        <div class="award-year">Aug. 2024</div>
+        <div class="award-desc"><strong>Probabilistic Models for Machine Learning</strong><br><small>Prof. Gaurav Sharma, University of Rochester &amp; SPARC, IISc</small></div>
       </div>
       <div class="award-item">
-        <div class="award-year">Aug. 2017</div>
-        <div class="award-desc">
-          <strong>Best Graduate Hire</strong> &mdash; IBM India Pvt. Ltd.
-          <small>For contribution towards IBM's commitment to delivering client value.</small>
-        </div>
+        <div class="award-year">Nov. 2022&nbsp;&ndash;<br>Jan. 2023</div>
+        <div class="award-desc"><strong>Machine Learning Specialization</strong><br><small>Stanford University &amp; DeepLearning.AI, Coursera</small></div>
       </div>
       <div class="award-item">
-        <div class="award-year">Jun. 2016</div>
-        <div class="award-desc">
-          <strong>President's Gold Medal</strong> &mdash; NIT Meghalaya
-          <small>For overall performance in academic and co-curricular activities among all B.Tech graduates.</small>
-        </div>
-      </div>
-      <div class="award-item">
-        <div class="award-year">Jun. 2016</div>
-        <div class="award-desc">
-          <strong>Institute Gold Medal</strong> &mdash; NIT Meghalaya
-          <small>Highest CGPA among students completing B.Tech in Electrical and Electronics Engineering.</small>
-        </div>
-      </div>
-      <div class="award-item">
-        <div class="award-year">2014&ndash;2016</div>
-        <div class="award-desc">
-          <strong>Merit Free Studentship</strong> &mdash; NIT Meghalaya
-          <small>Top 5% of department students in respective semesters.</small>
-        </div>
+        <div class="award-year">Nov. 2022&nbsp;&ndash;<br>Jan. 2023</div>
+        <div class="award-desc"><strong>AI Curriculum Connect</strong><br><small>AI Core, India &amp; UK Partnership Program</small></div>
       </div>
     </section>
 
@@ -263,14 +216,6 @@
       <div class="service-category">
         <div class="service-title">Reviewer</div>
         <p>IEEE Transactions on Smart Grid, IEEE PESGM, IEEE ISGT, IET Cyber-Physical Systems</p>
-      </div>
-      <div class="service-category">
-        <div class="service-title">Certifications &amp; Online Courses</div>
-        <ul>
-          <li><strong>Probabilistic Models for Machine Learning</strong> &mdash; Prof. Gaurav Sharma, Uni. of Rochester &amp; SPARC, IISc (Aug. 2024)</li>
-          <li><strong>Machine Learning Specialization</strong> &mdash; Stanford University &amp; DeepLearning.AI, Coursera (Nov. 2022 &ndash; Jan. 2023)</li>
-          <li><strong>AI Curriculum Connect</strong> &mdash; AI Core, India &amp; UK Partnership Program (Nov. 2022 &ndash; Jan. 2023)</li>
-        </ul>
       </div>
     </section>
 

@@ -28,25 +28,90 @@ header {
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 1rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1.5rem;
 }
 
 .header-content { flex: 1; }
 
-.header-image img {
+/* ── Photo wrapper with upload overlay ── */
+.header-image { flex-shrink: 0; }
+
+.photo-wrapper {
+  position: relative;
   width: 130px;
   height: 130px;
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+  background: #e8edf5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Default SVG silhouette shown when no photo loaded */
+.photo-wrapper::before {
+  content: '';
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: #c5cfdd;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+.photo-wrapper::after {
+  content: '';
+  position: absolute;
+  width: 90px;
+  height: 60px;
+  border-radius: 50% 50% 0 0;
+  background: #c5cfdd;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+#profilePhoto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid var(--border-color);
-  transition: transform var(--transition-time) ease, box-shadow var(--transition-time) ease;
+  z-index: 1;
+  display: none;
 }
-.header-image img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 5px 15px var(--shadow-color);
+
+#profilePhoto.loaded { display: block; }
+
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(74, 116, 185, 0.72);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.72rem;
+  font-family: 'Inter', sans-serif;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity var(--transition-time) ease;
+  z-index: 2;
 }
+
+.photo-overlay i { font-size: 1.3rem; }
+
+.photo-wrapper:hover .photo-overlay { opacity: 1; }
 
 h1 {
   font-size: 2.2rem;
@@ -140,24 +205,13 @@ section {
   gap: 1.25rem;
 }
 .pub-thumbnail {
-  width: 125px;
-  height: 125px;
-  flex-shrink: 0;
-  border: 1px solid var(--border-color);
-  overflow: hidden;
-  cursor: pointer;
-  position: relative;
-  border-radius: 6px;
+  width: 125px; height: 125px; flex-shrink: 0;
+  border: 1px solid var(--border-color); overflow: hidden;
+  cursor: pointer; border-radius: 6px;
   box-shadow: 0 2px 8px var(--shadow-color);
-  background: #f0f4fa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #f0f4fa; display: flex; align-items: center; justify-content: center;
 }
-.pub-thumbnail img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform var(--transition-time) ease;
-}
+.pub-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-time) ease; }
 .pub-thumbnail:hover img { transform: scale(1.08); }
 .pub-thumbnail-placeholder { font-size: 2.5rem; opacity: 0.3; }
 .pub-content { flex: 1; }
@@ -169,8 +223,7 @@ section {
 .pub-award {
   font-size: 0.85rem; font-weight: 500; color: #fff;
   background-color: var(--accent-color); padding: 0.15rem 0.5rem;
-  border-radius: 4px; display: inline-block;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1); white-space: nowrap; animation: pulse 2s infinite;
+  border-radius: 4px; white-space: nowrap; animation: pulse 2s infinite;
 }
 @keyframes pulse {
   0%   { box-shadow: 0 0 0 0 rgba(74, 116, 185, 0.4); }
@@ -179,15 +232,15 @@ section {
 }
 .pub-links { font-size: 0.85rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .pub-links a {
-  color: var(--accent-color); transition: all var(--transition-time) ease;
-  padding: 0.2rem 0.5rem; border-radius: 4px; background-color: rgba(74, 116, 185, 0.08);
+  color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 4px;
+  background-color: rgba(74, 116, 185, 0.08); transition: all var(--transition-time) ease;
 }
 .pub-links a:hover { color: #fff; background-color: var(--accent-color); transform: translateX(3px); }
 
 .award-item { display: flex; align-items: baseline; margin-bottom: 0.75rem; }
-.award-year { font-weight: 500; color: var(--accent-color); flex: 0 0 95px; font-size: 0.88rem; }
+.award-year { font-weight: 500; color: var(--accent-color); flex: 0 0 100px; font-size: 0.88rem; }
 .award-desc { flex: 1; }
-.award-desc small { font-size: 0.85rem; color: var(--text-secondary); margin-left: 0.5rem; }
+.award-desc small { font-size: 0.85rem; color: var(--text-secondary); margin-left: 0.3rem; }
 
 .news-container { max-height: 300px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; }
 .news-container::-webkit-scrollbar { display: none; }
@@ -209,15 +262,18 @@ ul { padding-left: 1.25rem; }
 p { margin: 0.5rem 0 0.75rem; }
 strong { font-weight: 600; color: var(--accent-color); }
 
-.modal { display: none; position: fixed; z-index: 1000; padding-top: 100px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.85); transition: opacity var(--transition-time); opacity: 0; }
-.modal.show { opacity: 1; }
+.modal { display: none; position: fixed; z-index: 1000; padding-top: 100px; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); transition: opacity var(--transition-time); opacity: 0; }
+.modal.show { opacity: 1; display: block; }
 .modal-content { margin: auto; display: block; max-width: 85%; max-height: 85%; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); animation: zoom var(--transition-time) ease-out; }
 @keyframes zoom { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.modal-close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 35px; cursor: pointer; transition: color var(--transition-time); opacity: 0.8; }
+.modal-close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 35px; cursor: pointer; opacity: 0.8; }
 .modal-close:hover { color: #fff; opacity: 1; }
 
 @media (max-width: 768px) {
   header { flex-direction: column-reverse; align-items: center; text-align: center; }
+  .photo-wrapper { width: 100px; height: 100px; }
+  .photo-wrapper::before { width: 42px; height: 42px; top: 18px; }
+  .photo-wrapper::after { width: 70px; height: 46px; }
   .social-links-header { flex-wrap: wrap; justify-content: center; }
   .award-year { flex: 0 0 72px; font-size: 0.8rem; }
   .pub-thumbnail { width: 80px; height: 80px; }
