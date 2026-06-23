@@ -1,0 +1,107 @@
+{
+  "publications": [
+    {
+      "title": "Device Similarity-Aware Bayesian Attack Graphs Considering MITRE EMB3D Threat Map for IEC 61850 Substations",
+      "authors": [
+        "Kuldeep Singh Shivran",
+        "Sarasij Das"
+      ],
+      "venue": "IEEE Transactions on Smart Grid (2026, In Review)",
+      "thumbnail": "images/thumbs/tsg2026.jpg",
+      "selected": 1,
+      "award": "",
+      "links": {}
+    },
+    {
+      "title": "Improved Cyber-physical Attack Impact Assessment Considering Node-breaker Model of Substations",
+      "authors": [
+        "Kuldeep Singh Shivran",
+        "Sarasij Das"
+      ],
+      "venue": "2026 IEEE Industry Applications Society Annual Meeting (IAS) \u2014 Accepted",
+      "thumbnail": "images/thumbs/ias2026.jpg",
+      "selected": 1,
+      "award": "",
+      "links": {}
+    },
+    {
+      "title": "Cyber Risk Identification and Classification-Based Load Forecasting Tool for Pandemic Situations",
+      "authors": [
+        "Kuldeep Singh Shivran",
+        "Kyle Swire-Thompson",
+        "Neetesh Saxena",
+        "Sarasij Das"
+      ],
+      "venue": "IET Cyber-Physical Systems: Theory & Applications, vol. 10, no. 1, 2025",
+      "thumbnail": "images/thumbs/iet2025.jpg",
+      "selected": 1,
+      "award": "",
+      "links": {
+        "pdf": "https://doi.org/10.1049/cps2.70014"
+      }
+    },
+    {
+      "title": "Similarity Metrics for Digital Devices in IEC 61850 Substation for Vulnerability Assessment",
+      "authors": [
+        "Kuldeep Singh Shivran",
+        "Sarasij Das"
+      ],
+      "venue": "2025 IEEE Power & Energy Society General Meeting (PESGM), pp. 1\u20135",
+      "thumbnail": "images/thumbs/pesgm2025.jpg",
+      "selected": 1,
+      "award": "",
+      "links": {
+        "pdf": "https://doi.org/10.1109/PESGM52009.2025.11224976"
+      }
+    },
+    {
+      "title": "Series Arc and Hotspot Detection in Power Distribution Box for Industrial Loads",
+      "authors": [
+        "Kuldeep Singh Shivran",
+        "Sarasij Das"
+      ],
+      "venue": "2025 IEEE International Conference on Power Electronics, Smart Grid, and Renewable Energy (PESGRE), pp. 1\u20136",
+      "thumbnail": "images/thumbs/pesgre2025.jpg",
+      "selected": 0,
+      "award": "",
+      "links": {
+        "pdf": "https://doi.org/10.1109/PESGRE65581.2025.11521593"
+      }
+    },
+    {
+      "title": "Adapting Software-defined Information Centric Networks for IEC 61850-based Substations",
+      "authors": [
+        "Kuldeep Singh Shivran",
+        "Sharad Shrestha",
+        "George Torres",
+        "Sarasij Das",
+        "Satyajayant Misra"
+      ],
+      "venue": "2024 IEEE PES Innovative Smart Grid Technologies - Asia (ISGT Asia), pp. 1\u20136",
+      "thumbnail": "images/thumbs/isgt2024.jpg",
+      "selected": 1,
+      "award": "",
+      "links": {
+        "pdf": "https://doi.org/10.1109/ISGTAsia61245.2024.10876244"
+      }
+    },
+    {
+      "title": "IoT-Based Smart Car for Safety of Elderly People",
+      "authors": [
+        "Karan Gupta",
+        "Nitin Rakesh",
+        "Neetu Faujdar",
+        "Nidhi Gupta",
+        "Deepak Vaswani",
+        "Kuldeep Singh Shivran"
+      ],
+      "venue": "Smart Systems and IoT: Innovations in Computing, Springer Singapore, pp. 111\u2013120, 2020",
+      "thumbnail": "images/thumbs/springer2020.jpg",
+      "selected": 0,
+      "award": "",
+      "links": {
+        "pdf": "https://doi.org/10.1007/978-981-13-8406-6_12"
+      }
+    }
+  ]
+}
