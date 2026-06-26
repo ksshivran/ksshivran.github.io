@@ -11,6 +11,18 @@ document.addEventListener('DOMContentLoaded', function () {
   const btn = document.getElementById('toggle-publications');
   if (btn) btn.addEventListener('click', togglePublications);
 
+  // ── Position sidebar precisely next to #layout ────
+  function positionSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const layout  = document.getElementById('layout');
+    if (!sidebar || !layout) return;
+    const rect = layout.getBoundingClientRect();
+    const rightEdge = window.innerWidth - rect.right;
+    sidebar.style.right = Math.max(0, rightEdge) + 'px';
+  }
+  positionSidebar();
+  window.addEventListener('resize', positionSidebar);
+
   // ── Hamburger toggle ──────────────────────────────
   const hamburger = document.getElementById('hamburger-btn');
   const mobileNav = document.getElementById('mobile-nav');
@@ -40,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ── Active sidebar link on scroll ────────────────
-  const sections = document.querySelectorAll('section[id]');
+  const sections    = document.querySelectorAll('section[id]');
   const sidebarLinks = document.querySelectorAll('#sidebar nav a');
   const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -57,14 +69,8 @@ document.addEventListener('DOMContentLoaded', function () {
 // ── Publications ───────────────────────────────────
 function loadPublications() {
   fetch('publications.json')
-    .then(r => {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    })
-    .then(data => {
-      allPublications = data.publications || [];
-      renderPublications(true);
-    })
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(data => { allPublications = data.publications || []; renderPublications(true); })
     .catch(err => {
       console.error('Error loading publications:', err);
       document.getElementById('publications-container').innerHTML =
@@ -75,39 +81,25 @@ function loadPublications() {
 function renderPublications(selectedOnly) {
   const container = document.getElementById('publications-container');
   if (!container) return;
-  const pubs = selectedOnly
-    ? allPublications.filter(p => p.selected)
-    : allPublications;
-  if (!pubs.length) {
-    container.innerHTML = '<p style="color:#888;font-size:0.9rem;">No publications found.</p>';
-    return;
-  }
+  const pubs = selectedOnly ? allPublications.filter(p => p.selected) : allPublications;
+  if (!pubs.length) { container.innerHTML = '<p style="color:#888;font-size:0.9rem;">No publications found.</p>'; return; }
   container.innerHTML = pubs.map(p => buildPubHTML(p)).join('');
 }
 
 function buildPubHTML(p) {
   const thumbSrc = p.thumbnail || '';
-  const thumb = thumbSrc
-    ? `<img src="${thumbSrc}" alt="thumbnail" loading="lazy">`
-    : `<span class="pub-thumbnail-placeholder">📄</span>`;
+  const thumb = thumbSrc ? `<img src="${thumbSrc}" alt="thumbnail" loading="lazy">` : `<span class="pub-thumbnail-placeholder">📄</span>`;
   const thumbClick = thumbSrc ? `onclick="openModal('${thumbSrc}')"` : '';
   const award = p.award ? `<span class="pub-award">🏆 ${p.award}</span>` : '';
-  const links = (p.links || [])
-    .map(l => `<a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label}</a>`)
-    .join('');
-  const authors = (p.authors || '')
-    .replace(/Kuldeep Singh Shivran/g,
-      '<span class="highlight-name">Kuldeep Singh Shivran</span>');
+  const links = (p.links || []).map(l => `<a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label}</a>`).join('');
+  const authors = (p.authors || '').replace(/Kuldeep Singh Shivran/g, '<span class="highlight-name">Kuldeep Singh Shivran</span>');
   return `
     <div class="publication-item">
       <div class="pub-thumbnail" ${thumbClick}>${thumb}</div>
       <div class="pub-content">
         <div class="pub-title">${p.title || ''}</div>
         <div class="pub-authors">${authors}</div>
-        <div class="pub-venue-container">
-          <span class="pub-venue">${p.venue || ''}</span>
-          ${award}
-        </div>
+        <div class="pub-venue-container"><span class="pub-venue">${p.venue || ''}</span>${award}</div>
         <div class="pub-links">${links}</div>
       </div>
     </div>`;
