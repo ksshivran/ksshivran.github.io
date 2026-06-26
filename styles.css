@@ -12,11 +12,10 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-/* ── Two-column layout ───────────────────────────────── */
 html, body {
-  height: 100%;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 body {
@@ -25,30 +24,35 @@ body {
   color: var(--text-color);
   background-color: var(--bg-color);
   font-weight: 300;
-  display: flex;
+}
+
+/* ── Layout wrapper ──────────────────────────────────── */
+#layout {
   max-width: 1020px;
   margin: 0 auto;
+  position: relative;
   min-height: 100vh;
 }
 
-/* ── Main content (left/center) ─────────────────────── */
+/* ── Main content ────────────────────────────────────── */
 #page-content {
-  flex: 1;
-  min-width: 0;
-  padding: 1.5rem 2rem 2rem 1.5rem;
-  overflow-y: auto;
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
+  margin-right: 165px;
 }
 
-/* ── Right Sidebar ───────────────────────────────────── */
+/* ── Right Sidebar — fixed ───────────────────────────── */
 #sidebar {
-  width: 160px;
-  flex-shrink: 0;
-  position: sticky;
+  position: fixed;
   top: 0;
+  width: 155px;
   height: 100vh;
   overflow-y: auto;
   border-left: 1px solid var(--border-color);
-  padding: 2rem 0.75rem 2rem 1rem;
+  padding: 2.5rem 0.75rem 2rem 1rem;
+  background-color: var(--bg-color);
+  z-index: 50;
+  /* JS will set 'right' precisely; fallback below */
+  right: max(0px, calc(50vw - 510px));
 }
 
 #sidebar nav ul {
@@ -62,7 +66,7 @@ body {
 
 #sidebar nav ul li a {
   display: block;
-  padding: 0.42rem 0.5rem;
+  padding: 0.42rem 0.6rem;
   color: var(--text-secondary);
   font-size: 0.86rem;
   font-weight: 400;
@@ -100,10 +104,8 @@ body {
   padding-top: 0.25rem;
 }
 .header-image img {
-  width: 115px;
-  height: 115px;
-  object-fit: cover;
-  border-radius: 50%;
+  width: 115px; height: 115px;
+  object-fit: cover; border-radius: 50%;
   border: 2px solid var(--border-color);
   box-shadow: 0 2px 10px var(--shadow-color);
   display: block;
@@ -128,8 +130,7 @@ body {
 }
 .hamburger span {
   display: block;
-  width: 22px;
-  height: 2px;
+  width: 22px; height: 2px;
   background-color: var(--text-secondary);
   border-radius: 2px;
   transition: all 0.25s ease;
@@ -138,7 +139,7 @@ body {
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ── Mobile dropdown: hidden on desktop ─────────────── */
+/* ── Mobile dropdown ────────────────────────────────── */
 .mobile-nav {
   display: none;
   background-color: var(--bg-color);
@@ -160,7 +161,6 @@ body {
   display: block;
   padding: 0.65rem 1.5rem;
   color: var(--text-secondary);
-  font-weight: 400;
   font-size: 0.95rem;
   border-left: 3px solid transparent;
   transition: all 0.2s ease;
@@ -195,32 +195,15 @@ body {
 .social-links-header a i { margin-right: 0.35rem; }
 
 /* ── Typography ─────────────────────────────────────── */
-h1 {
-  font-size: 2.1rem;
-  font-weight: 500;
-  margin-bottom: 0.2rem;
-  letter-spacing: -0.02em;
-}
-h2 {
-  font-size: 1.4rem;
-  font-weight: 500;
-  margin: 1.75rem 0 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
-  letter-spacing: -0.01em;
-}
+h1 { font-size: 2.1rem; font-weight: 500; margin-bottom: 0.2rem; letter-spacing: -0.02em; }
+h2 { font-size: 1.4rem; font-weight: 500; margin: 1.75rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); letter-spacing: -0.01em; }
 
 /* ── Sections ───────────────────────────────────────── */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateX(var(--animation-offset)); }
   to   { opacity: 1; transform: translateX(0); }
 }
-section {
-  margin-bottom: 2rem;
-  scroll-margin-top: 1rem;
-  animation: fadeIn 0.8s ease-out;
-  width: 100%;
-}
+section { margin-bottom: 2rem; scroll-margin-top: 1rem; animation: fadeIn 0.8s ease-out; width: 100%; }
 .publication-item, .award-item, .service-category, .misc-item, .news-list li {
   transition: transform var(--transition-time) ease;
 }
@@ -230,35 +213,18 @@ section {
 }
 
 /* ── Publications ───────────────────────────────────── */
-.publications-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
+.publications-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
 .toggle-publications {
-  background-color: rgba(74,116,185,0.08);
-  color: var(--accent-color);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all var(--transition-time) ease;
+  background-color: rgba(74,116,185,0.08); color: var(--accent-color);
+  border: none; padding: 0.5rem 1rem; border-radius: 4px;
+  cursor: pointer; font-weight: 500; transition: all var(--transition-time) ease;
 }
 .toggle-publications:hover { background-color: var(--accent-color); color: white; }
-.publication-item {
-  margin-bottom: 1.5rem;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  gap: 1.25rem;
-}
+.publication-item { margin-bottom: 1.5rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border-color); display: flex; gap: 1.25rem; }
 .pub-thumbnail {
   width: 125px; height: 125px; flex-shrink: 0;
-  border: 1px solid var(--border-color); overflow: hidden;
-  cursor: pointer; border-radius: 6px;
-  box-shadow: 0 2px 8px var(--shadow-color);
+  border: 1px solid var(--border-color); overflow: hidden; cursor: pointer;
+  border-radius: 6px; box-shadow: 0 2px 8px var(--shadow-color);
   background: #f0f4fa; display: flex; align-items: center; justify-content: center;
 }
 .pub-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-time) ease; }
@@ -287,7 +253,7 @@ section {
 }
 .pub-links a:hover { color: #fff; background-color: var(--accent-color); }
 
-/* ── Awards / Education ─────────────────────────────── */
+/* ── Awards ─────────────────────────────────────────── */
 .award-item { display: flex; align-items: baseline; margin-bottom: 0.75rem; }
 .award-year { font-weight: 500; color: var(--accent-color); flex: 0 0 100px; font-size: 0.88rem; }
 .award-desc { flex: 1; }
@@ -324,13 +290,12 @@ strong { font-weight: 600; color: var(--accent-color); }
 .modal-close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 35px; cursor: pointer; opacity: 0.8; }
 .modal-close:hover { color: #fff; opacity: 1; }
 
-/* ── Responsive ≤768px ──────────────────────────────── */
+/* ── Responsive ≤ 768px ─────────────────────────────── */
 @media (max-width: 768px) {
-  body { flex-direction: column; }
   #sidebar { display: none; }
+  #page-content { margin-right: 0; padding: 1rem; }
   .hamburger { display: flex; }
   .mobile-nav { display: block; }
-  #page-content { padding: 1rem; }
   #site-header { flex-direction: row; align-items: flex-start; }
   .header-image img { width: 85px; height: 85px; }
   .social-links-header { flex-wrap: wrap; }
