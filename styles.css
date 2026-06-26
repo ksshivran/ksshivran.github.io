@@ -1,285 +1,155 @@
-:root {
-  --bg-color: #fff;
-  --text-color: #2d3748;
-  --text-secondary: #4a5568;
-  --accent-color: #4a74b9;
-  --accent-hover: #3a5c9e;
-  --border-color: #e2e8f0;
-  --shadow-color: rgba(0,0,0,0.05);
-  --animation-offset: 3px;
-  --transition-time: 0.3s;
-  --nav-height: 0px; /* updated by JS once nav renders */
-}
+let allPublications = [];
+let showingSelected = true;
 
-*, *::before, *::after { box-sizing: border-box; }
+document.addEventListener('DOMContentLoaded', function () {
+  loadPublications();
 
-body {
-  font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
-  line-height: 1.6;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 1.5rem;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  font-weight: 300;
-}
+  document.querySelectorAll('section').forEach((s, i) => {
+    s.style.animationDelay = (i * 0.1) + 's';
+  });
 
-/* ── Header: normal flow, no sticky ─────────────────── */
-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border-color);
-}
+  const btn = document.getElementById('toggle-publications');
+  if (btn) btn.addEventListener('click', togglePublications);
 
-.header-content { flex: 1; }
+  // ── Sticky nav logic ──────────────────────────────────
+  const nav         = document.getElementById('main-nav');
+  const sentinel    = document.getElementById('nav-sentinel');
+  const placeholder = document.getElementById('nav-placeholder');
 
-.header-image {
-  padding-top: 1rem;
-}
-
-.header-image img {
-  width: 130px;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid var(--border-color);
-  box-shadow: 0 2px 10px var(--shadow-color);
-  transition: transform var(--transition-time) ease,
-              box-shadow var(--transition-time) ease;
-  display: block;
-}
-.header-image img:hover {
-  transform: scale(1.03);
-  box-shadow: 0 5px 18px rgba(74, 116, 185, 0.18);
-}
-
-/* ── Nav sentinel & placeholder ─────────────────────── */
-#nav-sentinel {
-  /* invisible marker; sits right above nav in normal flow */
-}
-
-#nav-placeholder {
-  /* zero height by default; JS sets it to nav's height when nav goes fixed */
-  display: none;
-}
-
-/* ── Nav: normal state ───────────────────────────────── */
-#main-nav {
-  background-color: var(--bg-color);
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
-  padding: 0.5rem 0;
-  /* bleed edge-to-edge within body's 1.5rem padding */
-  margin-left: -1.5rem;
-  margin-right: -1.5rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  transition: box-shadow 0.25s ease;
-}
-
-/* ── Nav: fixed state (class added by JS) ────────────── */
-#main-nav.nav-fixed {
-  position: fixed;
-  top: 0;
-  /* mirror body's max-width + centering */
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(800px, 100%);
-  z-index: 100;
-  /* restore horizontal padding since fixed breaks margin bleed */
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.09);
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-}
-
-nav a, .social-links-header a {
-  text-decoration: none;
-  color: var(--text-secondary);
-  transition: all var(--transition-time) ease;
-  font-weight: 400;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-}
-nav a:hover, .social-links-header a:hover {
-  color: var(--accent-color);
-  background-color: rgba(74, 116, 185, 0.08);
-  transform: translateX(var(--animation-offset));
-}
-
-.social-links-header {
-  display: flex;
-  gap: 1.25rem;
-  margin: 1.2rem 0;
-  flex-wrap: wrap;
-}
-.social-links-header a i { margin-right: 0.4rem; }
-
-/* ── Headings ────────────────────────────────────────── */
-h1 {
-  font-size: 2.2rem;
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-  letter-spacing: -0.02em;
-}
-
-h2 {
-  font-size: 1.4rem;
-  font-weight: 500;
-  margin: 1.75rem 0 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
-  letter-spacing: -0.01em;
-}
-
-/* ── Sections ────────────────────────────────────────── */
-.publication-item, .award-item, .service-category, .misc-item, .news-list li {
-  transition: transform var(--transition-time) ease;
-}
-.publication-item:hover, .award-item:hover,
-.service-category:hover, .misc-item:hover, .news-list li:hover {
-  transform: translateX(var(--animation-offset));
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateX(var(--animation-offset)); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-section {
-  margin-bottom: 2rem;
-  /* scroll-margin-top is set dynamically by JS to match nav height */
-  scroll-margin-top: var(--nav-height);
-  animation: fadeIn 0.8s ease-out;
-  width: 100%;
-}
-
-/* ── Publications ────────────────────────────────────── */
-.publications-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-.toggle-publications {
-  background-color: rgba(74, 116, 185, 0.08);
-  color: var(--accent-color);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all var(--transition-time) ease;
-}
-.toggle-publications:hover { background-color: var(--accent-color); color: white; }
-
-.publication-item {
-  margin-bottom: 1.5rem;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  gap: 1.25rem;
-}
-.pub-thumbnail {
-  width: 125px; height: 125px; flex-shrink: 0;
-  border: 1px solid var(--border-color); overflow: hidden;
-  cursor: pointer; border-radius: 6px;
-  box-shadow: 0 2px 8px var(--shadow-color);
-  background: #f0f4fa; display: flex; align-items: center; justify-content: center;
-}
-.pub-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-time) ease; }
-.pub-thumbnail:hover img { transform: scale(1.08); }
-.pub-thumbnail-placeholder { font-size: 2.5rem; opacity: 0.3; }
-.pub-content { flex: 1; }
-.pub-title { font-weight: 500; margin-bottom: 0.4rem; font-size: 1.05rem; }
-.pub-authors { font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-secondary); line-height: 1.5; }
-.highlight-name { font-weight: 600; color: var(--accent-color); }
-.pub-venue-container { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
-.pub-venue { font-size: 0.9rem; font-style: italic; color: var(--text-secondary); }
-.pub-award {
-  font-size: 0.85rem; font-weight: 500; color: #fff;
-  background-color: var(--accent-color); padding: 0.15rem 0.5rem;
-  border-radius: 4px; white-space: nowrap; animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(74, 116, 185, 0.4); }
-  70%  { box-shadow: 0 0 0 6px rgba(74, 116, 185, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(74, 116, 185, 0); }
-}
-.pub-links { font-size: 0.85rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.pub-links a {
-  color: var(--accent-color); padding: 0.2rem 0.5rem; border-radius: 4px;
-  background-color: rgba(74, 116, 185, 0.08); transition: all var(--transition-time) ease;
-}
-.pub-links a:hover { color: #fff; background-color: var(--accent-color); transform: translateX(3px); }
-
-/* ── Awards / Education ──────────────────────────────── */
-.award-item { display: flex; align-items: baseline; margin-bottom: 0.75rem; }
-.award-year { font-weight: 500; color: var(--accent-color); flex: 0 0 100px; font-size: 0.88rem; }
-.award-desc { flex: 1; }
-.award-desc small { font-size: 0.85rem; color: var(--text-secondary); margin-left: 0.3rem; }
-
-/* ── News ────────────────────────────────────────────── */
-.news-container { max-height: 300px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; }
-.news-container::-webkit-scrollbar { display: none; }
-.news-list { padding-left: 0; list-style-type: none; margin: 0.5rem 0; }
-.news-list li { margin-bottom: 0.9rem; padding-left: 0.9rem; border-left: 2px solid rgba(74, 116, 185, 0.2); padding-bottom: 0.7rem; }
-.news-list li:hover { border-left-color: var(--accent-color); }
-
-/* ── Services / Skills ───────────────────────────────── */
-.service-title { font-weight: 500; margin-bottom: 0.35rem; color: var(--accent-color); }
-.service-category p, .misc-item p { margin: 0.25rem 0 0.75rem; }
-.misc-item { margin-bottom: 1.25rem; }
-.misc-item ul { margin: 0.25rem 0 0.75rem; padding-left: 1.25rem; }
-
-/* ── Footer ──────────────────────────────────────────── */
-footer { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: var(--text-secondary); text-align: center; }
-
-/* ── Misc ────────────────────────────────────────────── */
-a { color: var(--accent-color); text-decoration: none; transition: color var(--transition-time) ease; }
-a:hover { color: var(--accent-hover); }
-em { font-style: italic; color: var(--text-secondary); }
-ul { padding-left: 1.25rem; }
-p { margin: 0.5rem 0 0.75rem; }
-strong { font-weight: 600; color: var(--accent-color); }
-
-/* ── Modal ───────────────────────────────────────────── */
-.modal { display: none; position: fixed; z-index: 1000; padding-top: 100px; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); transition: opacity var(--transition-time); opacity: 0; }
-.modal.show { opacity: 1; }
-.modal-content { margin: auto; display: block; max-width: 85%; max-height: 85%; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); animation: zoom var(--transition-time) ease-out; }
-@keyframes zoom { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.modal-close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 35px; cursor: pointer; opacity: 0.8; }
-.modal-close:hover { color: #fff; opacity: 1; }
-
-/* ── Responsive ──────────────────────────────────────── */
-@media (max-width: 768px) {
-  header { flex-direction: column-reverse; align-items: center; text-align: center; }
-  .header-image img { width: 100px; height: 100px; }
-  .social-links-header { flex-wrap: wrap; justify-content: center; }
-  .award-year { flex: 0 0 72px; font-size: 0.8rem; }
-  .pub-thumbnail { width: 80px; height: 80px; }
-  .publication-item:hover, .award-item:hover, .service-category:hover,
-  .misc-item:hover, .news-list li:hover, nav a:hover,
-  .social-links-header a:hover, .pub-links a:hover { transform: none !important; }
-  /* on mobile, nav is full viewport width */
-  #main-nav.nav-fixed {
-    width: 100%;
-    left: 0;
-    transform: none;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+  function getNavHeight() {
+    return nav.getBoundingClientRect().height;
   }
+
+  function applyNavHeight(h) {
+    // keep sections' scroll-margin-top in sync with actual nav height
+    document.documentElement.style.setProperty('--nav-height', h + 'px');
+  }
+
+  // Use IntersectionObserver on the sentinel (sits just above nav).
+  // When sentinel leaves the top of the viewport, nav should become fixed.
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+        // Sentinel has scrolled above viewport — fix the nav
+        const h = getNavHeight();
+        placeholder.style.display = 'block';
+        placeholder.style.height  = h + 'px';
+        nav.classList.add('nav-fixed');
+        applyNavHeight(h);
+      } else {
+        // Sentinel is visible again — release nav back to normal flow
+        nav.classList.remove('nav-fixed');
+        placeholder.style.display = 'none';
+        placeholder.style.height  = '0';
+        applyNavHeight(0);
+      }
+    },
+    { threshold: 0, rootMargin: '0px' }
+  );
+
+  observer.observe(sentinel);
+
+  // Update nav height on resize (e.g. nav wraps to two lines on narrow screens)
+  window.addEventListener('resize', () => {
+    if (nav.classList.contains('nav-fixed')) {
+      const h = getNavHeight();
+      placeholder.style.height = h + 'px';
+      applyNavHeight(h);
+    }
+  });
+});
+
+// ── Publications ──────────────────────────────────────
+function loadPublications() {
+  fetch('publications.json')
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(data => {
+      allPublications = data.publications;
+      renderPublications(true);
+    })
+    .catch(err => {
+      console.error('Error loading publications:', err);
+      document.getElementById('publications-container').innerHTML =
+        '<p style="color:#888;font-size:0.9rem;">Could not load publications. ' +
+        'Serve via a local HTTP server: <code>python3 -m http.server</code></p>';
+    });
 }
+
+function renderPublications(selectedOnly) {
+  const container = document.getElementById('publications-container');
+  if (!container) return;
+
+  const pubs = selectedOnly
+    ? allPublications.filter(p => p.selected)
+    : allPublications;
+
+  if (!pubs.length) {
+    container.innerHTML = '<p style="color:#888;font-size:0.9rem;">No publications found.</p>';
+    return;
+  }
+
+  container.innerHTML = pubs.map(p => buildPubHTML(p)).join('');
+}
+
+function buildPubHTML(p) {
+  const thumb = p.thumbnail
+    ? `<img src="${p.thumbnail}" alt="thumbnail" onclick="openModal('${p.thumbnail}')" loading="lazy">`
+    : `<span class="pub-thumbnail-placeholder">📄</span>`;
+
+  const award = p.award
+    ? `<span class="pub-award">🏆 ${p.award}</span>`
+    : '';
+
+  const links = (p.links || [])
+    .map(l => `<a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label}</a>`)
+    .join('');
+
+  // Bold the author name
+  const authors = (p.authors || '')
+    .replace(/Kuldeep Singh Shivran/g,
+      '<span class="highlight-name">Kuldeep Singh Shivran</span>');
+
+  return `
+    <div class="publication-item">
+      <div class="pub-thumbnail" onclick="${p.thumbnail ? `openModal('${p.thumbnail}')` : ''}">${thumb}</div>
+      <div class="pub-content">
+        <div class="pub-title">${p.title || ''}</div>
+        <div class="pub-authors">${authors}</div>
+        <div class="pub-venue-container">
+          <span class="pub-venue">${p.venue || ''}</span>
+          ${award}
+        </div>
+        <div class="pub-links">${links}</div>
+      </div>
+    </div>`;
+}
+
+function togglePublications() {
+  showingSelected = !showingSelected;
+  renderPublications(showingSelected);
+  const btn = document.getElementById('toggle-publications');
+  const hdr = document.getElementById('toggle-header');
+  if (btn) btn.textContent = showingSelected ? 'Show All' : 'Show Selected';
+  if (hdr) hdr.textContent = showingSelected ? 'Selected Publications' : 'All Publications';
+}
+
+function openModal(src) {
+  const modal = document.getElementById('imageModal');
+  const img   = document.getElementById('modalImage');
+  if (!modal || !img) return;
+  img.src = src;
+  modal.style.display = 'block';
+  setTimeout(() => modal.classList.add('show'), 10);
+}
+
+function closeModal() {
+  const modal = document.getElementById('imageModal');
+  if (!modal) return;
+  modal.classList.remove('show');
+  setTimeout(() => { modal.style.display = 'none'; }, 300);
+}
+
+window.addEventListener('click', e => {
+  const modal = document.getElementById('imageModal');
+  if (e.target === modal) closeModal();
+});
