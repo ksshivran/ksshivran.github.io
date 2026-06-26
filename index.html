@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <header>
+  <header id="site-header">
     <div class="header-content">
       <h1>Kuldeep Singh Shivran</h1>
       <p>PhD Researcher &bull; Department of Electrical Engineering<br>Indian Institute of Science (IISc), Bengaluru, India</p>
@@ -21,15 +21,35 @@
         <a href="https://github.com/ksshivran" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
         <a href="https://linkedin.com/in/kshivran" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
       </div>
+      <!-- Desktop inline nav (visible >=769px) -->
+      <nav id="main-nav">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#awards">Awards</a></li>
+          <li><a href="#courses">Courses</a></li>
+          <li><a href="#services">Services</a></li>
+        </ul>
+      </nav>
     </div>
-    <div class="header-image">
-      <img src="images/profile.jpg" alt="Kuldeep Singh Shivran" onerror="this.style.display='none'">
+    <div class="header-right">
+      <div class="header-image">
+        <img src="images/profile.jpg" alt="Kuldeep Singh Shivran" onerror="this.style.display='none'">
+      </div>
+      <!-- Hamburger button (visible <=768px) -->
+      <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
-  <!-- Nav is now outside header, sits between header and main -->
-  <div id="nav-sentinel"></div>
-  <nav id="main-nav">
+  <!-- Mobile dropdown nav -->
+  <div id="mobile-nav" class="mobile-nav" aria-hidden="true">
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#news">News</a></li>
@@ -42,12 +62,9 @@
       <li><a href="#courses">Courses</a></li>
       <li><a href="#services">Services</a></li>
     </ul>
-  </nav>
-  <!-- Placeholder holds nav's space when nav becomes fixed -->
-  <div id="nav-placeholder"></div>
+  </div>
 
   <main>
-
     <section id="about">
       <h2>About</h2>
       <p>I am a PhD researcher at IISc Bengaluru working on <strong>cyber-physical security of electric power grids</strong>, advised by Prof. Sarasij Das. My research spans substation topology modelling (IEC&nbsp;61850 / node-breaker model), Bayesian attack graphs, vulnerability assessment, and cyber-physical attack impact analysis.</p>
@@ -184,10 +201,9 @@
       <h2>Services</h2>
       <div class="service-category">
         <div class="service-title">Reviewer</div>
-        <p>IEEE Access, EPSR, IEEE OAJPE, IEEE PESGM, IEEE ISGT, IEEE IAS AM,  IET Cyber-Physical Systems.</p>
+        <p>IEEE Access, EPSR, IEEE OAJPE, IEEE PESGM, IEEE ISGT, IEEE IAS AM, IET Cyber-Physical Systems.</p>
       </div>
     </section>
-
   </main>
 
   <footer>
