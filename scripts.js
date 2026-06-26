@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // ── Hamburger toggle ──────────────────────────────
   const hamburger = document.getElementById('hamburger-btn');
   const mobileNav = document.getElementById('mobile-nav');
-
   if (hamburger && mobileNav) {
     hamburger.addEventListener('click', () => {
       const isOpen = mobileNav.classList.toggle('open');
@@ -22,8 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
       hamburger.setAttribute('aria-expanded', isOpen);
       mobileNav.setAttribute('aria-hidden', !isOpen);
     });
-
-    // Close when a nav link is tapped
     mobileNav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         mobileNav.classList.remove('open');
@@ -32,8 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
         mobileNav.setAttribute('aria-hidden', true);
       });
     });
-
-    // Close on outside click
     document.addEventListener('click', (e) => {
       if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
         mobileNav.classList.remove('open');
@@ -43,6 +38,20 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+
+  // ── Active sidebar link on scroll ────────────────
+  const sections = document.querySelectorAll('section[id]');
+  const sidebarLinks = document.querySelectorAll('#sidebar nav a');
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        sidebarLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`#sidebar nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => scrollObserver.observe(s));
 });
 
 // ── Publications ───────────────────────────────────
