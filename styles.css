@@ -132,7 +132,7 @@ nav a:hover, .social-links-header a:hover {
 }
 section {
   margin-bottom: 2rem;
-  scroll-margin-top: 1rem;
+  scroll-margin-top: 52px;
   animation: fadeIn 0.8s ease-out;
   width: 100%;
 }
