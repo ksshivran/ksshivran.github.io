@@ -11,107 +11,87 @@ document.addEventListener('DOMContentLoaded', function () {
   const btn = document.getElementById('toggle-publications');
   if (btn) btn.addEventListener('click', togglePublications);
 
-  // ── Sticky nav logic ──────────────────────────────────
-  const nav         = document.getElementById('main-nav');
-  const sentinel    = document.getElementById('nav-sentinel');
-  const placeholder = document.getElementById('nav-placeholder');
+  // ── Hamburger toggle ──────────────────────────────
+  const hamburger = document.getElementById('hamburger-btn');
+  const mobileNav = document.getElementById('mobile-nav');
 
-  function getNavHeight() {
-    return nav.getBoundingClientRect().height;
-  }
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      mobileNav.setAttribute('aria-hidden', !isOpen);
+    });
 
-  function applyNavHeight(h) {
-    // keep sections' scroll-margin-top in sync with actual nav height
-    document.documentElement.style.setProperty('--nav-height', h + 'px');
-  }
+    // Close when a nav link is tapped
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+        mobileNav.setAttribute('aria-hidden', true);
+      });
+    });
 
-  // Use IntersectionObserver on the sentinel (sits just above nav).
-  // When sentinel leaves the top of the viewport, nav should become fixed.
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
-        // Sentinel has scrolled above viewport — fix the nav
-        const h = getNavHeight();
-        placeholder.style.display = 'block';
-        placeholder.style.height  = h + 'px';
-        nav.classList.add('nav-fixed');
-        applyNavHeight(h);
-      } else {
-        // Sentinel is visible again — release nav back to normal flow
-        nav.classList.remove('nav-fixed');
-        placeholder.style.display = 'none';
-        placeholder.style.height  = '0';
-        applyNavHeight(0);
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+        mobileNav.setAttribute('aria-hidden', true);
       }
-    },
-    { threshold: 0, rootMargin: '0px' }
-  );
-
-  observer.observe(sentinel);
-
-  // Update nav height on resize (e.g. nav wraps to two lines on narrow screens)
-  window.addEventListener('resize', () => {
-    if (nav.classList.contains('nav-fixed')) {
-      const h = getNavHeight();
-      placeholder.style.height = h + 'px';
-      applyNavHeight(h);
-    }
-  });
+    });
+  }
 });
 
-// ── Publications ──────────────────────────────────────
+// ── Publications ───────────────────────────────────
 function loadPublications() {
   fetch('publications.json')
-    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
     .then(data => {
-      allPublications = data.publications;
+      allPublications = data.publications || [];
       renderPublications(true);
     })
     .catch(err => {
       console.error('Error loading publications:', err);
       document.getElementById('publications-container').innerHTML =
-        '<p style="color:#888;font-size:0.9rem;">Could not load publications. ' +
-        'Serve via a local HTTP server: <code>python3 -m http.server</code></p>';
+        '<p style="color:#888;font-size:0.9rem;padding:1rem 0;">Publications could not be loaded. Ensure <code>publications.json</code> is in the same folder.</p>';
     });
 }
 
 function renderPublications(selectedOnly) {
   const container = document.getElementById('publications-container');
   if (!container) return;
-
   const pubs = selectedOnly
     ? allPublications.filter(p => p.selected)
     : allPublications;
-
   if (!pubs.length) {
     container.innerHTML = '<p style="color:#888;font-size:0.9rem;">No publications found.</p>';
     return;
   }
-
   container.innerHTML = pubs.map(p => buildPubHTML(p)).join('');
 }
 
 function buildPubHTML(p) {
-  const thumb = p.thumbnail
-    ? `<img src="${p.thumbnail}" alt="thumbnail" onclick="openModal('${p.thumbnail}')" loading="lazy">`
+  const thumbSrc = p.thumbnail || '';
+  const thumb = thumbSrc
+    ? `<img src="${thumbSrc}" alt="thumbnail" loading="lazy">`
     : `<span class="pub-thumbnail-placeholder">📄</span>`;
-
-  const award = p.award
-    ? `<span class="pub-award">🏆 ${p.award}</span>`
-    : '';
-
+  const thumbClick = thumbSrc ? `onclick="openModal('${thumbSrc}')"` : '';
+  const award = p.award ? `<span class="pub-award">🏆 ${p.award}</span>` : '';
   const links = (p.links || [])
     .map(l => `<a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label}</a>`)
     .join('');
-
-  // Bold the author name
   const authors = (p.authors || '')
     .replace(/Kuldeep Singh Shivran/g,
       '<span class="highlight-name">Kuldeep Singh Shivran</span>');
-
   return `
     <div class="publication-item">
-      <div class="pub-thumbnail" onclick="${p.thumbnail ? `openModal('${p.thumbnail}')` : ''}">${thumb}</div>
+      <div class="pub-thumbnail" ${thumbClick}>${thumb}</div>
       <div class="pub-content">
         <div class="pub-title">${p.title || ''}</div>
         <div class="pub-authors">${authors}</div>
