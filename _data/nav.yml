@@ -1,0 +1,11 @@
+# TOP MENU — order here is the order on the site.
+- title: About
+  url: /
+- title: Publications
+  url: /publications/
+- title: CV
+  url: /cv/
+# Blog is hidden for now. To show it again, remove the # on the next two lines
+# and set `published: true` in blog.md and in the files inside _posts/.
+# - title: Blog
+#   url: /blog/

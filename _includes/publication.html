@@ -1,0 +1,16 @@
+{%- comment -%}One publication entry (used by publications.md). Image on the left, or a name tile if there is no image.{%- endcomment -%}
+<li class="pub">
+  <div class="pub-thumb">
+    {%- if include.p.image -%}
+      <img src="{{ include.p.image }}" alt="">
+    {%- else -%}
+      <span class="pub-abbr">{{ include.p.abbr }}</span><span class="pub-year">{{ include.p.year }}</span>
+    {%- endif -%}
+  </div>
+  <div class="pub-body">
+    <span class="pub-title">{{ include.p.title }}</span><br>
+    <span class="pub-authors">{{ include.p.authors | replace: "Kuldeep Singh Shivran", "<strong>Kuldeep Singh Shivran</strong>" }}</span><br>
+    <span class="pub-venue">{{ include.p.venue }}</span>
+    {%- for l in include.p.links %} <a class="pub-link" href="{{ l[1] }}">{{ l[0] }}</a>{% endfor %}
+  </div>
+</li>

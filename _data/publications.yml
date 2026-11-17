@@ -1,0 +1,86 @@
+# PUBLICATIONS: copy a block to add a paper.
+# type:  Journal | Conference | Patent
+# abbr / year: the short name shown on the tile at the left when there is no image
+# image: (optional) a picture of the paper, e.g.  image: /assets/papers/my-paper.jpg
+#        put the file in the assets/papers folder; if omitted, the name tile is shown
+# links: (optional) one per line as   label: URL
+
+- title: "Device Similarity-Aware Bayesian Attack Graphs Considering MITRE EMB3D Threat Map for IEC 61850 Electric Grid Substations"
+  abbr: "IEEE TII"
+  year: "2026"
+  authors: "Kuldeep Singh Shivran, Sarasij Das"
+  venue: "IEEE Transactions on Industrial Informatics, 2026 (In Review)"
+  type: Journal
+
+- title: "Grid Impact Analysis of Physical Attacks on Substations Considering Attackers' Attributes and Defenses"
+  abbr: "In prep."
+  year: "2026"
+  authors: "Kuldeep Singh Shivran, Rajat Sanyal, Sarasij Das"
+  venue: "Manuscript in preparation, 2026 (To be submitted)"
+  type: Journal
+
+- title: "Pattern Similarity-Based Sensitive Passive Method for Detection of Continuity Loss for Neutral Grounding Devices"
+  abbr: "IEEE TPWRD"
+  year: "2026"
+  authors: "Nabil Al Mghizel, Kuldeep Singh Shivran, Sarasij Das"
+  venue: "IEEE Transactions on Power Delivery, 2026 (Under review)"
+  type: Journal
+
+- title: "Cyber Risk Identification and Classification-Based Load Forecasting Tool for Pandemic Situations"
+  abbr: "IET CPS"
+  year: "2025"
+  authors: "Kuldeep Singh Shivran, Kyle Swire-Thompson, Neetesh Saxena, Sarasij Das"
+  venue: "IET Cyber-Physical Systems: Theory & Applications, vol. 10, no. 1, e70014, 2025"
+  type: Journal
+  links:
+    DOI: "https://doi.org/10.1049/cps2.70014"
+
+- title: "Improved Cyber-physical Attack Impact Assessment Considering Node-breaker Model of Substations"
+  abbr: "IEEE IAS"
+  year: "2026"
+  authors: "Kuldeep Singh Shivran, Sarasij Das"
+  venue: "2026 IEEE Industry Applications Society Annual Meeting (IAS) - Accepted"
+  type: Conference
+
+- title: "Similarity Metrics for Digital Devices in IEC 61850 Substation for Vulnerability Assessment"
+  abbr: "IEEE PESGM"
+  year: "2025"
+  authors: "Kuldeep Singh Shivran, Sarasij Das"
+  venue: "2025 IEEE Power & Energy Society General Meeting (PESGM), pp. 1–5"
+  type: Conference
+  links:
+    DOI: "https://doi.org/10.1109/PESGM52009.2025.11224976"
+
+- title: "Series Arc and Hotspot Detection in Power Distribution Box for Industrial Loads"
+  abbr: "IEEE PESGRE"
+  year: "2025"
+  authors: "Kuldeep Singh Shivran, Sarasij Das"
+  venue: "2025 IEEE International Conference on Power Electronics, Smart Grid, and Renewable Energy (PESGRE), pp. 1–6"
+  type: Conference
+  links:
+    DOI: "https://doi.org/10.1109/PESGRE65581.2025.11521593"
+
+- title: "Adapting Software-defined Information Centric Networks for IEC 61850-based Substations"
+  abbr: "ISGT Asia"
+  year: "2024"
+  authors: "Kuldeep Singh Shivran, Sharad Shrestha, George Torres, Sarasij Das, Satyajayant Misra"
+  venue: "2024 IEEE PES Innovative Smart Grid Technologies - Asia (ISGT Asia), pp. 1–6"
+  type: Conference
+  links:
+    DOI: "https://doi.org/10.1109/ISGTAsia61245.2024.10876244"
+
+- title: "IoT-Based Smart Car for Safety of Elderly People"
+  abbr: "Springer"
+  year: "2020"
+  authors: "Karan Gupta, Nitin Rakesh, Neetu Faujdar, Nidhi Gupta, Deepak Vaswani, Kuldeep Singh Shivran"
+  venue: "Smart Systems and IoT: Innovations in Computing, Springer Singapore, pp. 111–120, 2020"
+  type: Conference
+  links:
+    DOI: "https://doi.org/10.1007/978-981-13-8406-6_12"
+
+- title: "Method and System for Authenticating a Control Command for a Circuit Breaker"
+  abbr: "Patent"
+  year: "2025"
+  authors: "Akula Sathvick, Kuldeep Singh Shivran, Sarasij Das"
+  venue: "Indian Patent No. 593141 (Application No. 202541041231), Indian Institute of Science"
+  type: Patent

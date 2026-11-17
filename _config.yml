@@ -1,0 +1,14 @@
+# Site settings. Edit these, then commit; GitHub rebuilds the site.
+title: Kuldeep Singh Shivran
+description: PhD researcher at IISc Bengaluru working on cyber-physical security, risk analysis and resilience of electric grids.
+url: https://ksshivran.github.io
+email: kuldeeps@iisc.ac.in
+github_username: ksshivran
+linkedin_username: kshivran
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  math_engine: mathjax   # turns $$ ... $$ into math that MathJax draws
+permalink: /blog/:year/:month/:title/
+
