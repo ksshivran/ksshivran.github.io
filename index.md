@@ -41,4 +41,4 @@ Cyber-physical security of power grids · Stability and Control · Risk analysis
 {% endfor %}
 </ul>
 
-<p class="more"><a href="/publications/">Publications</a> &middot; <a href="/cv/">Full CV</a></p>
+<p class="more"> <a href="/research/">Research</a> &middot; <a href="/publications/">Publications</a> &middot; <a href="/cv/">Full CV</a></p>
