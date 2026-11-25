@@ -7,5 +7,5 @@
   url: /cv/
 # Blog is hidden for now. To show it again, remove the # on the next two lines
 # and set `published: true` in blog.md and in the files inside _posts/.
-# - title: Blog
-#   url: /blog/
+- title: Blog
+  url: /blog/

@@ -1,12 +1,12 @@
 ---
 layout: default
 title: Blog
-published: false   # hidden for now; change to true to show the Blog page
+published: true   # hidden for now; change to true to show the Blog page
 ---
 
 # Blog and tutorials
 
-Notes and tutorials on power systems, cyber-physical security and the mathematics behind them.
+Working on ... 
 
 <ul class="post-list">
 {% for post in site.posts %}
