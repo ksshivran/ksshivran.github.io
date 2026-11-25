@@ -1,6 +1,7 @@
 ---
 layout: default
 title: About
+body_class: home
 ---
 
 <!-- Top block: photo, name, links. Edit the text freely. -->
