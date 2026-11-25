@@ -110,6 +110,13 @@ nav a.active, nav a:hover { color: var(--accent); text-decoration: none; }
 .when, .date-range { font-family: var(--font-mono); color: var(--muted); font-size: var(--fs-xs); font-weight: 400; }
 .more { font-size: var(--fs-sm); }
 
+/* ---------- Research page: a picture beside a short text, one block per theme ---------- */
+.theme { display: flex; gap: 1.6rem; align-items: center; margin: 2rem 0; }
+.theme img { flex: 0 0 240px; width: 240px; height: 160px; border: 1px solid var(--border); border-radius: 10px; background: var(--soft); }
+.theme h2 { margin: 0 0 .4rem; padding: 0; border: 0; font-size: var(--fs-h3); }
+.theme p { margin: .3rem 0; }
+.related { font-size: var(--fs-sm); color: var(--muted); }
+
 /* ---------- Blog ---------- */
 .post-list { list-style: none; padding: 0; }
 .post-list li { margin-bottom: 1.3rem; }
@@ -127,4 +134,6 @@ footer { margin-top: 3.5rem; padding-top: 1rem; padding-bottom: 2.5rem; border-t
   nav a { margin: 0 .8rem 0 0; }
   :root { --fs-h1: 1.4rem; --fs-h2: 1.12rem; }
   .pub-thumb { flex-basis: 88px; height: 64px; }
+  .theme { flex-direction: column; align-items: stretch; gap: .8rem; }
+  .theme img { width: 100%; flex-basis: auto; height: auto; aspect-ratio: 3 / 2; }
 }

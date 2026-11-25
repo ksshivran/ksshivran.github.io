@@ -1,6 +1,8 @@
 # TOP MENU — order here is the order on the site.
 - title: About
   url: /
+- title: Research
+  url: /research/
 - title: Publications
   url: /publications/
 - title: CV
