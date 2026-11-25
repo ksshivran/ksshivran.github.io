@@ -112,7 +112,8 @@ nav a.active, nav a:hover { color: var(--accent); text-decoration: none; }
 
 /* ---------- Research page: a picture beside a short text, one block per theme ---------- */
 .theme { display: flex; gap: 1.6rem; align-items: center; margin: 2rem 0; }
-.theme img { flex: 0 0 240px; width: 240px; height: 160px; border: 1px solid var(--border); border-radius: 10px; background: var(--soft); }
+.theme img { flex: 0 0 32%; width: 32%; max-width: 240px; min-width: 96px; height: auto; aspect-ratio: 3 / 2;   /* shrinks with the screen */
+             border: 1px solid var(--border); border-radius: 10px; background: var(--soft); }
 .theme h2 { margin: 0 0 .4rem; padding: 0; border: 0; font-size: var(--fs-h3); }
 .theme p { margin: .3rem 0; }
 .related { font-size: var(--fs-sm); color: var(--muted); }
@@ -135,7 +136,6 @@ footer { margin-top: 3.5rem; padding-top: 1rem; padding-bottom: 2.5rem; border-t
   :root { --fs-h1: 1.4rem; --fs-h2: 1.12rem; }
   .pub-thumb { flex-basis: 88px; height: 64px; }
   .theme { gap: .9rem; align-items: flex-start; }                   /* keep the picture at the side on phones too */
-  .theme img { flex-basis: 110px; width: 110px; height: 73px; }
   .theme h2 { font-size: var(--fs-base); }
   .theme p { font-size: var(--fs-sm); }
 }
