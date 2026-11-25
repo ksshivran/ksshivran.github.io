@@ -19,9 +19,9 @@ title: About
 
 ## About
 
-I am a PhD researcher (M.Tech.(Res) and PhD) at IISc Bengaluru working on **cyber-physical security of electric grids**, advised by Prof. Sarasij Das. My research spans substation security, Bayesian attack graphs and grid impact analysis for cyber-physical attack on substations, signal processing and stability analysis.
+I am a PhD researcher (M.Tech. (Res) and PhD) at IISc Bengaluru working on **cyber-physical security of electric grids**, advised by Prof. Sarasij Das. My research spans substation security, Bayesian attack graphs and grid impact analysis for cyber-physical attacks on substations, signal processing, and stability analysis.
 
-I am seeking a **researcher role** in cyber-physical security, resilience, stability and control of electric grids. Where, I want to contribute and develop my expertise in recent and future challanges for sustainable and secure power transfer from source to loads.
+I am seeking a **researcher role** in cyber-physical security, resilience, stability, and control of electric grids, where I can contribute to and develop my expertise in addressing current and emerging challenges in the secure and sustainable delivery of power from generation to end users.
 
 ## Research interests
 
