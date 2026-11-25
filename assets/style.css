@@ -79,7 +79,6 @@ body.paper footer { color: #667085; border-top: 0; }
 .site-header { border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 5; }
 .site-header .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; padding-top: .8rem; padding-bottom: .8rem; }
 .site-name { font-weight: 700; color: var(--text); }
-@media (min-width: 601px) { nav { margin-left: auto; } }
 nav a { margin-left: 1.3rem; color: var(--muted); font-size: var(--fs-sm); }
 nav a.active, nav a:hover { color: var(--accent); text-decoration: none; }
 

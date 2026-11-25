@@ -20,7 +20,7 @@
 <body class="{{ page.body_class }}">
   <header class="site-header">
     <div class="wrap">
-      {% unless page.url == "/" %}<a class="site-name" href="/">{{ site.title }}</a>{% endunless %}
+      {% if page.url == "/" %}<span></span>{% else %}<a class="site-name" href="/">{{ site.title }}</a>{% endif %}
       <nav>
         {% for item in site.data.nav %}
           <a href="{{ item.url }}"{% if page.url == item.url or page.url contains item.url and item.url != "/" %} class="active"{% endif %}>{{ item.title }}</a>
